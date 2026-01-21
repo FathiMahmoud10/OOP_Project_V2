@@ -6,7 +6,7 @@ namespace OOP_Pro.Models
 {
    public static class GradeManager
     {
-         
+
 
         #region GPA calculation 
         public static double CalculateGPA(Student student)
@@ -27,6 +27,9 @@ namespace OOP_Pro.Models
 
                
             }
+
+            if (totalhour == 0) return 0;
+
             double gpa100 = Math.Round(total / totalhour);
             double gpa = gpa100 / 25;
             Console.WriteLine($"The GPA of {student.Name}  is {gpa} .");
@@ -38,10 +41,10 @@ namespace OOP_Pro.Models
        
 
         #region Identify at-risk and top students
-        public static void riskandtopstudents(Student[] allstudents)
+        public static void riskandtopstudents(List<Student> students)
         {
 
-            foreach (var student in allstudents)
+            foreach (var student in students)
             {
                 double gpa = CalculateGPA(student);
                 if (gpa >= 3.6)

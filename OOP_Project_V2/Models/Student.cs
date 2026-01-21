@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace OOP_Pro.Models
 {
@@ -20,19 +21,35 @@ namespace OOP_Pro.Models
         }
 
         #region Assign grades 
-        public static void AssignGrade(Student student, Course course, double score)
+        public static void AssignGrade(Student student, List<Course> courses, List<double> scores)
         {
-            //Student = > name 
-            var existing = student.Courses.FirstOrDefault(sc => sc.Course == course);     //عشان ميضفش درجتين لنفس الماده
-            if (existing != null)
+            // تأكد إن عدد المواد = عدد الدرجات
+            if (courses.Count != scores.Count)
             {
-                existing.Grade = score;
+                Console.WriteLine("Courses and scores count must be equal.");
+                return;
             }
-            else
+
+            for (int i = 0; i < courses.Count; i++)
             {
-                student.Courses.Add(new StudentCourse(course, score));
+                Course course = courses[i];
+                double score = scores[i];
+
+                // نشوف هل المادة دي موجودة قبل كده عند الطالب
+                var existing = student.Courses
+                                      .FirstOrDefault(sc => sc.Course == course);
+
+                if (existing != null)
+                {
+                    existing.Grade = score;
+                }
+                else
+                {
+                    student.Courses.Add(new StudentCourse(course, score));
+                }
             }
         }
+
         #endregion
 
 
