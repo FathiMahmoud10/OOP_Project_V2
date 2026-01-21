@@ -6,7 +6,7 @@ namespace OOP_Pro.Models
 {
    public static class GradeManager
     {
-
+         
 
         #region GPA calculation 
         public static double CalculateGPA(Student student)
